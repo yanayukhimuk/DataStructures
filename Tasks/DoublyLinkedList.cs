@@ -229,7 +229,7 @@ namespace Tasks
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+           throw new NotImplementedException();
         }
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
