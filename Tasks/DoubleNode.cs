@@ -4,11 +4,11 @@ using System.Text;
 
 namespace Tasks
 {
-    public class DoubleNode
+    public class DoubleNode<T>
     {
         private object element;
-        private DoubleNode next;
-        private DoubleNode previous;
+        private DoubleNode<T> next;
+        private DoubleNode<T> previous;
 
         public DoubleNode(object element)
         {
@@ -17,7 +17,7 @@ namespace Tasks
             this.previous = null;
         }
 
-        public DoubleNode(object element, DoubleNode prevNode)
+        public DoubleNode(object element, DoubleNode<T> prevNode)
         {
             this.element = element;
             this.previous = prevNode;
@@ -30,13 +30,13 @@ namespace Tasks
             set { this.element = value; }
         }
 
-        public DoubleNode Next
+        public DoubleNode<T> Next
         {
             get { return this.next; }
             set { this.next = value; }
         }
 
-        public DoubleNode Previous
+        public DoubleNode<T> Previous
         {
             get { return this.previous; }
             set { this.previous = value; }

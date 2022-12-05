@@ -9,19 +9,10 @@ namespace Tasks
 {
     public class DoublyLinkedList<T> : IDoublyLinkedList<T>
     {
-        private DoubleNode _head;
-        private DoubleNode _tail;
+        private DoubleNode<T> _head;
+        private DoubleNode<T> _tail;
         private int _count;
-        public DoubleNode[] _doubleNodes;
-        public DoublyLinkedList(DoubleNode[] doubleNodesArr)
-        {
-            _doubleNodes = new DoubleNode[doubleNodesArr.Length];
-
-            for (int i = 0; i < doubleNodesArr.Length; i++)
-            {
-                _doubleNodes[i] = doubleNodesArr[i];    
-            }
-        }
+        
         public DoublyLinkedList()
         {
             this._head = null;
@@ -37,7 +28,7 @@ namespace Tasks
                 {
                     throw new IndexOutOfRangeException("Out of range!");
                 }
-                DoubleNode currentNode = this._head;
+                DoubleNode<T> currentNode = this._head;
                 for (int i = 0; i < index; i++)
                 {
                     currentNode = currentNode.Next;
@@ -50,7 +41,7 @@ namespace Tasks
                 {
                     throw new IndexOutOfRangeException("Out of range!");
                 }
-                DoubleNode currentNode = this._head;
+                DoubleNode<T> currentNode = this._head;
                 for (int i = 0; i < index; i++)
                 {
                     currentNode = currentNode.Next;
@@ -63,12 +54,12 @@ namespace Tasks
         {
             if (this._head == null)
             {
-                this._head = new DoubleNode(e);
+                this._head = new DoubleNode<T>(e);
                 this._tail = this._head;
             }
             else
             {
-                DoubleNode newItem = new DoubleNode(e, _tail);
+                DoubleNode<T> newItem = new DoubleNode<T>(e, _tail);
                 this._tail = newItem;
             }
             _count++;
@@ -81,10 +72,10 @@ namespace Tasks
             {
                 throw new IndexOutOfRangeException("Out of range!");
             }
-            DoubleNode newItem = new DoubleNode(e);
+            DoubleNode<T> newItem = new DoubleNode<T>(e);
             int currentIndex = 0;
-            DoubleNode currentItem = this._head;
-            DoubleNode prevItem = null;
+            DoubleNode<T> currentItem = this._head;
+            DoubleNode<T> prevItem = null;
             while (currentIndex < index)
             {
                 prevItem = currentItem;
@@ -122,8 +113,8 @@ namespace Tasks
 
             int currentIndex = 0;
             T foundItem;
-            DoubleNode currentItem = this._head;
-            DoubleNode prevItem = null;
+            DoubleNode<T> currentItem = this._head;
+            DoubleNode<T> prevItem = null;
 
             while (currentIndex < index)
             {
@@ -143,8 +134,8 @@ namespace Tasks
         public void Remove(T item)
         {
             int currentIndex = 0;
-            DoubleNode currentItem = this._head;
-            DoubleNode prevItem = null;
+            DoubleNode<T> currentItem = this._head;
+            DoubleNode<T> prevItem = null;
             while (currentItem != null)
             {
                 if ((currentItem.Element != null &&
@@ -191,8 +182,8 @@ namespace Tasks
 
             int currentIndex = 0;
             T removedItem;
-            DoubleNode currentItem = this._head;
-            DoubleNode prevItem = null;
+            DoubleNode<T> currentItem = this._head;
+            DoubleNode<T> prevItem = null;
             while (currentIndex < index)
             {
                 prevItem = currentItem;
@@ -229,7 +220,17 @@ namespace Tasks
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-           throw new NotImplementedException();
+            return GetEnumerator();
+        }
+
+        IEnumerator<DoubleNode<T>> GetEnumerator()
+        {
+            DoubleNode<T> current = _head;
+            while (current != null)
+            {
+                yield return current;
+                current = current.Next;
+            }
         }
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
@@ -237,6 +238,4 @@ namespace Tasks
             throw new NotImplementedException();
         }
     }
-
-    
 }
