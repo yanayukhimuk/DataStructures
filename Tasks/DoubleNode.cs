@@ -6,40 +6,40 @@ namespace Tasks
 {
     public class DoubleNode<T>
     {
-        private object element;
-        private DoubleNode<T> next;
-        private DoubleNode<T> previous;
+        private object _element;
+        private DoubleNode<T> _next;
+        private DoubleNode<T> _previous;
 
         public DoubleNode(object element)
         {
-            this.element = element;
-            this.next = null;
-            this.previous = null;
+            this._element = element;
+            this._next = null;
+            this._previous = null;
         }
 
         public DoubleNode(object element, DoubleNode<T> prevNode)
         {
-            this.element = element;
-            this.previous = prevNode;
-            prevNode.next = this;
+            this._element = element;
+            this._previous = prevNode;
+            prevNode._next = this;
         }
 
         public object Element
         {
-            get { return this.element; }
-            set { this.element = value; }
+            get { return this._element; }
+            set { this._element = value; }
         }
 
         public DoubleNode<T> Next
         {
-            get { return this.next; }
-            set { this.next = value; }
+            get { return this._next; }
+            set { this._next = value; }
         }
 
         public DoubleNode<T> Previous
         {
-            get { return this.previous; }
-            set { this.previous = value; }
+            get { return this._previous; }
+            set { this._previous = value; }
         }
     }
 }

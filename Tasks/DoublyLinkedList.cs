@@ -220,22 +220,65 @@ namespace Tasks
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return GetEnumerator();
+            return (IEnumerator)this.GetEnumerator();
         }
 
-        IEnumerator<DoubleNode<T>> GetEnumerator()
+        private DoublyLinkedList<T>.DoublyLinkedListEnumerator GetEnumerator()
         {
-            DoubleNode<T> current = _head;
-            while (current != null)
-            {
-                yield return current;
-                current = current.Next;
-            }
+            return new DoublyLinkedListEnumerator(this._head, this._tail, this.Length);
         }
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return (IEnumerator<T>)this.GetEnumerator();
+        }
+
+        public struct DoublyLinkedListEnumerator : IEnumerator<T>, IEnumerator
+        {
+            private DoubleNode<T> _head;
+            private DoubleNode<T> _tail;
+            private DoubleNode<T> _currentLink;
+            private int _length;
+            private bool _startedFlag;
+
+            public DoublyLinkedListEnumerator(DoubleNode<T> head, DoubleNode<T> tail, int length)
+            {
+                this._head = head;
+                this._tail = tail;
+                this._currentLink = null;
+                this._length = length;
+                this._startedFlag = false;
+            }
+            public T Current => (T)this._currentLink.Element;
+
+            object IEnumerator.Current => (T)this._currentLink.Element;
+
+            public void Dispose()
+            {
+                this._head = null;
+                this._tail = null;
+                this._currentLink = null;
+            }
+
+            public bool MoveNext()
+            {
+                if (this._startedFlag == false)
+                {
+                    this._currentLink = this._head;
+                    this._startedFlag = true;
+                }
+                else
+                {
+                    this._currentLink = this._currentLink.Next;
+                }
+
+                return this._currentLink != null;
+            }
+
+            public void Reset()
+            {
+                this._currentLink = this._head;
+            }
         }
     }
 }
